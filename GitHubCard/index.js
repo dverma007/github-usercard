@@ -1,9 +1,17 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/dverma007')
+.then((res)=> {
+  console.log(res);
+})
+.catch((err) => {
+  console.error(err);
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -16,6 +24,7 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const card =document.querySelector('.cards');
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -49,7 +58,53 @@ const followersArray = [];
       </div>
     </div>
 */
+ const {imageURL, name, login, location, githubaddress, followers, following, bio} = gitObj
 
+function userCard(gitObj) {
+  //Instantiate (Create) the Elements
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const usersName = document.createElement('h3');
+  const usersUserName = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const userProfile = document.createElement('p');
+  const userGitHubPage = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+
+  //Step 2:  Setup the classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  usersName.classList.add('name');
+  usersUserName.classList.add('users');
+
+  //Step3:  Add any content
+  userImg.src = gitObj.imageURL;
+  usersName.textContent = gitObj.name;
+  usersUserName.textContent = gitObj.login;
+  userLocation.textContent = gitObj.location;
+  userProfile.textContent = gitObj.profile;
+  userGitHubPage.textContent = gitObj.githubaddress;
+  userFollowers.textContent = gitObj.followers;
+  userFollowing.textContent = gitObj.following;
+  userBio.textContent = gitObj.bio;
+
+// Step 4:  Layout the HTML
+card.appendChild(userImg);
+card.appendChild(cardInfo);
+cardInfo.appendChild(usersName);
+cardInfo.appendChild(usersUserName);
+cardInfo.appendChild(userLocation);
+cardInfo.appendChild(userLocation);
+cardInfo.appendChild(userProfile);
+userProfile.appendChild(userGitHubPage)
+cardInfo.appendChild(userFollowers);
+cardInfo.appendChild(userFollowing);
+cardInfo.appendChild(userBio);
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
